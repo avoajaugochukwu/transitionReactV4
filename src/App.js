@@ -1,22 +1,46 @@
 import React, { Component } from 'react';
 import { Route, Link } from "react-router-dom";
+import TransitionGroup from "react-transition-group/TransitionGroup";
+
+import Home from "./Home";
+import Subpage from "./Subpage";
+
+
 import logo from './logo.svg';
 import './App.css';
+
+const firstChild = props => {
+  const childrenArray = React.Children.toArray(props.children);
+  return childrenArray[0] || null;
+};
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="TopBar">
+          <Link to="/">Home</Link>
+          <Link to="/subpage">Subpage</Link>
+        </div>
+          {/* <Route exact path="/" component={Home} />
+          <Route exact path="/subpage" component={Subpage} /> */}
+          <Route
+            exact
+            path="/"
+            children={({ match, ...rest }) => (
+              <TransitionGroup component={firstChild}>
+                {match && <Home {...rest} />}
+              </TransitionGroup>
+          )}/>
+          <Route
+            path="/subpage"
+            children={({ match, ...rest }) => (
+              <TransitionGroup component={firstChild}>
+                {match && <Subpage {...rest} />}
+              </TransitionGroup>
+          )}/>
       </div>
     );
   }
 }
-
 export default App;

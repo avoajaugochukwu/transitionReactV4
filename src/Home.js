@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import AnimatedWrapper from "./AnimatedWrapper";
 
 
 export default class Home extends Component {
@@ -11,3 +12,4 @@ export default class Home extends Component {
   )
  }
 }
+
